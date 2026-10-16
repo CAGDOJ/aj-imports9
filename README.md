@@ -1,2 +1,3 @@
-# aj-imports9
-Arquivos públicos da loja AJ Imports para GitHub Pages. Sem código de servidor, senhas ou dados de clientes.
+# AJ Imports
+
+Interface pública da loja e da administração. Os registros e a autenticação ficam no servidor protegido. Nenhuma senha, token de configuração ou dado de cliente integra este repositório.
