@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Endereço atualizado · AJ Imports</title>
+  <script>
+  (function () {
+    var path=location.pathname;
+    var legacy=path.replace(/^\/aj-imports9(?=\/|$)/i,'');
+    if (legacy!==path) {
+      location.replace((legacy||'/')+location.search+location.hash);
+      return;
+    }
+    if (/^\/(?:admin|administracao|gerencia|gestao)(?:\/|$)/i.test(path)) {
+      location.replace('/gerente/'+location.search+location.hash);
+    }
+  })();
+  </script>
+  <style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f7f9fd;font:16px system-ui,-apple-system,sans-serif;color:#17315a;padding:24px}
+  main{width:min(100%,480px);background:white;border:1px solid #e2e8f4;border-radius:18px;padding:32px;box-shadow:0 10px 30px #0b23451a;text-align:center}
+  .brand{font-weight:800;color:#134caa;letter-spacing:.12em;margin-bottom:16px}
+  h1{font-size:clamp(24px,5vw,31px);line-height:1.18;margin:0 0 12px}
+  p{line-height:1.55;color:#59677b;margin:0 0 24px}
+  .links{display:grid;gap:12px}
+  a{display:block;text-decoration:none;padding:14px;border-radius:9px;background:#124798;color:white;font-weight:700}
+  a.secondary{background:#ecf2fc;color:#124798}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">AJ IMPORTS</div>
+    <h1>Este endereço mudou</h1>
+    <p>O link pode ser antigo. Use um dos acessos atualizados abaixo.</p>
+    <nav class="links" aria-label="Acessos AJ Imports">
+      <a href="/">Abrir a loja</a>
+      <a class="secondary" href="/gerente/">Entrar na gerência</a>
+    </nav>
+  </main>
+</body>
+</html>
