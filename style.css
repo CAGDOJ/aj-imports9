@@ -27,3 +27,136 @@ body{padding-bottom:90px}body.modal-open{overflow:hidden}.floating-actions{posit
 @media(max-width:650px){#productDetails .detail-image-frame{aspect-ratio:1.17/1}#productDetails .detail-image-frame>img{max-height:290px}#productDetails .detail-layout{gap:6px;padding:18px 15px}#productDetails .detail-close{top:8px;right:8px}#productDetails .detail-full-link{position:relative;min-height:50px;margin-top:16px}.product-page-link{font-size:11px}}
 
 .detail-page-form{margin:14px 0 10px}.detail-page-form .detail-full-link{width:100%;margin:0;border:0;cursor:pointer;font:inherit;font-size:13px;font-weight:750}.detail-page-form .detail-full-link:active{transform:scale(.99)}
+
+
+/* Mobile product preview: stable top-layer dialog in Safari / Chrome iOS. */
+#productDetails {
+  position:fixed;
+  inset:0;
+  margin:auto;
+  box-sizing:border-box;
+  width:min(94vw,930px);
+  max-width:94vw;
+  height:auto;
+  max-height:90dvh;
+  padding:0;
+  border:0;
+  border-radius:20px;
+  overflow:hidden;
+  overscroll-behavior:contain;
+  background:#fff;
+  color:var(--ink);
+  box-shadow:0 24px 90px rgba(7,23,53,.35);
+}
+#productDetails::backdrop {background:rgba(7,23,53,.68);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+#productDetails .detail-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  gap:26px;
+  box-sizing:border-box;
+  min-height:0;
+  max-height:90dvh;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding:34px;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  scroll-behavior:auto;
+}
+#productDetails .detail-close{
+  position:absolute;
+  top:12px;right:12px;z-index:30;
+  display:grid;place-items:center;
+  width:42px;height:42px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:#fff;color:var(--ink);
+}
+#productDetails .detail-image-frame{
+  position:relative;
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1;
+  min-height:0;
+  overflow:hidden;
+  border-radius:13px;
+  background:#fff;
+  touch-action:pan-y;
+}
+#productDetails .detail-image-frame > img {
+  position:absolute;
+  inset:0;
+  display:block;
+  width:100%;
+  height:100%;
+  min-width:0;
+  min-height:0;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  object-position:center;
+  pointer-events:none;
+  -webkit-user-drag:none;
+}
+#productDetails .detail-image-frame > p{
+  position:absolute;inset:0;
+  display:grid;place-items:center;
+  margin:0;
+}
+#productDetails .detail-gallery,
+#productDetails .detail-copy {min-width:0}
+#productDetails #photoThumbnails{max-width:100%;overscroll-behavior-x:contain}
+#productDetails #photoThumbnails img{max-width:100%;max-height:100%;object-fit:contain}
+@media(max-width:650px){
+  #productDetails{
+    position:fixed;
+    inset:auto 0 0 0;
+    margin:0;
+    width:100%;
+    max-width:100%;
+    height:92dvh;
+    max-height:calc(100dvh - env(safe-area-inset-top,0px) - 8px);
+    border-radius:20px 20px 0 0;
+    background:#fff;
+    overflow:hidden;
+  }
+  #productDetails .detail-layout{
+    display:block;
+    box-sizing:border-box;
+    height:100%;
+    max-height:100%;
+    min-height:0;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding:56px 17px calc(30px + env(safe-area-inset-bottom,0px));
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
+    scroll-padding-top:0;
+  }
+  #productDetails .detail-gallery{padding:0;margin:0 0 15px}
+  #productDetails .detail-copy{padding:0;margin:0}
+  #productDetails .detail-image-frame{
+    width:100%;
+    aspect-ratio:1.14 / 1;
+    max-height:none;
+  }
+  #productDetails .detail-image-frame > img{
+    width:100%;height:100%;
+    max-height:100%;
+    object-fit:contain;
+  }
+  #productDetails .detail-close{
+    top:10px;right:12px;
+    width:42px;height:42px;
+    box-shadow:0 3px 12px rgba(10,24,56,.12);
+  }
+  #productDetails .detail-copy h2{font-size:23px;line-height:1.25}
+  #productDetails .detail-price{font-size:25px}
+  #productDetails #detailDescription{font-size:13px;line-height:1.65}
+  #productDetails .detail-buy{padding-bottom:0}
+  #productDetails .detail-full-link{min-height:48px}
+}
+@supports(height:100svh){
+  @media(max-width:650px){#productDetails{max-height:calc(100svh - env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px))}}
+}

@@ -55,7 +55,14 @@ function openProduct(p){
  $('#detailSpecs').replaceChildren();const specs=String(p.specifications||'').split('\n').map(s=>s.trim()).filter(Boolean);$('#detailSpecsSection').hidden=!specs.length;
  for(const line of specs){const row=text('div','','spec-row'),colon=line.indexOf(':');if(colon>0)row.append(text('dt',line.slice(0,colon)),text('dd',line.slice(colon+1).trim()));else row.append(text('dd',line,'spec-full'));$('#detailSpecs').append(row)}
  $('#photoThumbnails').replaceChildren();detailPhotos.forEach((src,i)=>{const button=text('button','');button.type='button';button.setAttribute('aria-label',`Ver foto ${i+1} de ${p.name}`);const img=document.createElement('img');img.src=imageUrl(src);img.alt='';button.append(img);button.onclick=()=>showPhoto(i);$('#photoThumbnails').append(button)});showPhoto(0);
- $('#detailContact').href=WHATSAPP+'?text='+encodeURIComponent(`Olá, AJ Imports! Gostaria de saber mais sobre ${p.name} (${p.id}).`);$('#detailQuantity').value='1';$('#detailFeedback').textContent='';updateDetailBuy();$('#productDetails').showModal();syncModal();
+ $('#detailContact').href=WHATSAPP+'?text='+encodeURIComponent(`Olá, AJ Imports! Gostaria de saber mais sobre ${p.name} (${p.id}).`);$('#detailQuantity').value='1';$('#detailFeedback').textContent='';updateDetailBuy();const previewDialog=$('#productDetails');
+ if(!previewDialog.open)previewDialog.showModal();
+ syncModal();
+ const resetPreview=()=>{if(!previewDialog.open)return;previewDialog.scrollTop=0;const inner=previewDialog.querySelector('.detail-layout');if(inner)inner.scrollTop=0};
+ // Prevent iOS WebKit from restoring a previous scroll position when the dialog opens.
+ resetPreview();
+ requestAnimationFrame(()=>{resetPreview();try{$('#closeDetails').focus({preventScroll:true})}catch{}});
+ setTimeout(resetPreview,70);
 }
 $('#previousPhoto').onclick=()=>showPhoto(photoIndex-1);$('#nextPhoto').onclick=()=>showPhoto(photoIndex+1);$('#closeDetails').onclick=()=>$('#productDetails').close();$('#detailBag').onclick=openCart;
 let detailSwipeStart=null;
