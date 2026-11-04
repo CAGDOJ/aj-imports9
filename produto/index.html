@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102d68">
+<meta name="description" content="Fotos, características e detalhes de produtos da AJ Imports.">
+<title>Detalhes do produto | AJ Imports</title>
+<link rel="icon" href="../aj-imports-logo-transparent.png">
+<link rel="stylesheet" href="./product.css?v=20261104b">
+</head>
+<body>
+<header class="site-header">
+ <a class="brand" href="../" aria-label="Voltar à loja AJ Imports"><img src="../aj-imports-logo-transparent.png" alt="AJ Imports"><span>AJ IMPORTS<small>ESCOLHAS COM PERSONALIDADE</small></span></a>
+ <a class="back" href="../">Voltar à loja</a>
+</header>
+<main class="container">
+ <nav class="breadcrumb"><a href="../">Loja</a><span aria-hidden="true">/</span><span id="crumb">Detalhes do produto</span></nav>
+ <div id="loading" class="message" role="status">Carregando detalhes do produto…</div>
+ <div id="error" class="message" role="alert" hidden><h1>Produto não encontrado</h1><p>Não foi possível localizar os detalhes. Volte à loja e confira os itens disponíveis.</p><a class="button" href="../">Voltar ao catálogo</a></div>
+ <article id="product" hidden>
+   <div class="layout">
+     <section class="gallery" aria-label="Galeria de fotos do produto">
+       <div id="stage" class="stage" tabindex="0" aria-label="Fotos do produto. Deslize para os lados para navegar.">
+         <img id="mainPhoto" alt="" hidden>
+         <div id="noPhoto" class="no-photo" hidden><span class="placeholder-art" aria-hidden="true">AJ</span><span>Foto em breve</span></div>
+         <button id="prev" class="arrow prev" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 5-7 7 7 7"/></svg></button>
+         <button id="next" class="arrow next" type="button" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7"/></svg></button>
+         <span id="counter" class="counter" aria-live="polite"></span>
+       </div>
+       <div id="thumbs" class="thumbs" aria-label="Miniaturas de fotos"></div>
+       <p id="gestureHint" class="hint" hidden>Deslize a foto para o lado e veja outros ângulos</p>
+     </section>
+     <section class="information" aria-label="Informações do produto">
+       <p id="category" class="eyebrow"></p>
+       <h1 id="name"></h1>
+       <p id="price" class="price"></p>
+       <p id="stock" class="stock"></p>
+       <div class="summary"><h2>Visão geral</h2><p id="summary"></p></div>
+       <div class="buy">
+         <label for="quantity">Quantidade</label>
+         <div class="buy-row"><input id="quantity" type="number" inputmode="numeric" min="1" value="1" step="1"><button id="add" type="button" class="button">Adicionar à sacola</button></div>
+         <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+         <a class="bag-link" href="../?sacola=1">Ver minha sacola</a>
+       </div>
+       <a id="whatsapp" class="contact" target="_blank" rel="noopener noreferrer">Tirar uma dúvida pelo WhatsApp</a>
+     </section>
+   </div>
+   <section class="section" aria-labelledby="descTitle"><h2 id="descTitle">Descrição completa</h2><p id="description" class="description"></p></section>
+   <section id="specSection" class="section" aria-labelledby="specTitle" hidden><h2 id="specTitle">Especificações técnicas</h2><dl id="specs" class="specs"></dl></section>
+   <section class="after"><h2>Gostou do produto?</h2><p>Adicione à sacola ou fale diretamente com a AJ Imports para confirmar os detalhes da compra.</p><a href="../" class="bag-link">Continuar explorando o catálogo</a></section>
+ </article>
+</main>
+<footer><span>AJ IMPORTS</span><span>Escolhas com personalidade</span></footer>
+<script src="./product.js?v=20261104b"></script>
+</body>
+</html>
