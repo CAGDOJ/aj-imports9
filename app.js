@@ -64,6 +64,13 @@ detailFrame.addEventListener('touchstart',e=>{if(e.touches.length===1)detailSwip
 detailFrame.addEventListener('touchend',e=>{if(!detailSwipeStart||e.changedTouches.length!==1)return;const dx=e.changedTouches[0].clientX-detailSwipeStart.x,dy=e.changedTouches[0].clientY-detailSwipeStart.y;detailSwipeStart=null;if(detailPhotos.length>1&&Math.abs(dx)>38&&Math.abs(dx)>Math.abs(dy)*1.2)showPhoto(photoIndex+(dx<0?1:-1))},{passive:true});
 detailFrame.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();showPhoto(photoIndex+1)}else if(e.key==='ArrowLeft'){e.preventDefault();showPhoto(photoIndex-1)}});
 
+$('#detailFullLink').addEventListener('click',function(e){
+ e.preventDefault();
+ if(!detailProduct)return;
+ const destination=new URL('./produto/?id='+encodeURIComponent(detailProduct.id),location.href);
+ if($('#productDetails').open)$('#productDetails').close();
+ location.assign(destination.href);
+});
 $('#detailAdd').onclick=()=>{const qty=Number($('#detailQuantity').value);if(!$('#detailQuantity').reportValidity())return;if(addItem(detailProduct,qty)){$('#detailFeedback').textContent=`${qty} unidade(s) adicionada(s) à sacola.`;updateDetailBuy()}};
 $('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(selectionMessage());toast('Seleção copiada. Cole na conversa com a loja.')}catch{toast('Não foi possível copiar. Confira os itens na sacola.')}};
 $('#search').oninput=render;$('#sort').onchange=render;$('#year').textContent=new Date().getFullYear();updateBag();
