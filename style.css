@@ -25,3 +25,5 @@ body{padding-bottom:90px}body.modal-open{overflow:hidden}.floating-actions{posit
 #detailImage{-webkit-user-drag:none;pointer-events:none}
 .product{cursor:pointer}
 @media(max-width:650px){#productDetails .detail-image-frame{aspect-ratio:1.17/1}#productDetails .detail-image-frame>img{max-height:290px}#productDetails .detail-layout{gap:6px;padding:18px 15px}#productDetails .detail-close{top:8px;right:8px}#productDetails .detail-full-link{position:relative;min-height:50px;margin-top:16px}.product-page-link{font-size:11px}}
+
+.detail-page-form{margin:14px 0 10px}.detail-page-form .detail-full-link{width:100%;margin:0;border:0;cursor:pointer;font:inherit;font-size:13px;font-weight:750}.detail-page-form .detail-full-link:active{transform:scale(.99)}
