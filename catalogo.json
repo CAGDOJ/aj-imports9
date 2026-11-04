@@ -1,0 +1,47 @@
+{
+  "updatedAt": "2026-11-04T20:45:19.329Z",
+  "products": [
+    {
+      "id": "2a8e55dc-c777-4565-9e0f-35bed1e7d528",
+      "name": "Teste",
+      "category": "Smartwatch",
+      "description": "",
+      "price": 100,
+      "stock": 10,
+      "image": "",
+      "photos": [],
+      "specifications": ""
+    },
+    {
+      "id": "bb578388-bbe2-43fe-8107-a110d0c8d5f0",
+      "name": "Smartwatch U4 PRO a prova d’água 💦✅",
+      "category": "Masculino",
+      "description": "Smartwatch U4 Pro 49mm – Potência, elegância e tecnologia no seu pulso. ⌚️\n\n✔ Tela AMOLED com cores vibrantes e excelente definição.\n✔ Faz e recebe chamadas via Bluetooth.\n✔ Recebe e responde mensagens do WhatsApp.\n✔ Armazenamento interno para músicas.\n✔ Monitoramento de frequência cardíaca, sono e atividades físicas.\n✔ Diversos modos de esporte.\n✔ GPS integrado com o celular para registrar seus percursos.\n✔ Resistência à água 3 ATM.\n✔ Carregamento por indução.\n✔ Mostradores personalizáveis.\n✔ Bateria de longa duração.\n\nIdeal para quem busca um smartwatch premium, grande e completo e com excelente custo-benefício. \n\n📦 Produto novo com garantia.\n🚚 Enviamos para todo o Brasil.\n✅ Entrega grátis em Belém",
+      "price": 265,
+      "stock": 7,
+      "image": "/api/images/aede7217-77b4-44e7-8eed-600709d1a663.jpg",
+      "photos": [
+        "/api/images/aede7217-77b4-44e7-8eed-600709d1a663.jpg",
+        "/api/images/481b9903-1f2f-41c0-9aaf-655c92448093.jpg",
+        "/api/images/61defd80-8eb3-49ea-b2a4-5a7de5f110f6.jpg",
+        "/api/images/3c36e5a7-85e8-449d-88cc-d831e96627ef.jpg",
+        "/api/images/6f04d3f8-3e47-4e84-a5f9-42078f3547cd.jpg",
+        "/api/images/006bd9a8-64f2-46b8-b869-8f81ae468a9e.jpg"
+      ],
+      "specifications": ""
+    },
+    {
+      "id": "d2b56f3c-0e1d-4f8a-8a94-136868e19f2d",
+      "name": "W11 MINI 42mm FEMININO",
+      "category": "SMARTWATCH",
+      "description": "Smartwatch W11 Mini – O queridinho da categoria! ⌚✨\n\n• Faz e recebe ligações\n• Mostra notificações do WhatsApp e redes sociais\n• Mede batimentos, oxigênio, pressão e sono\n• Conta passos, calorias e monitora treinos\n• Controla músicas e tira fotos no celular\n• Permite colocar sua foto na tela\n• Design compacto e leve",
+      "price": 289.9,
+      "stock": 5,
+      "image": "/api/images/e75b3111-5af3-48a6-9852-82c8af6ec27e.jpg",
+      "photos": [
+        "/api/images/e75b3111-5af3-48a6-9852-82c8af6ec27e.jpg"
+      ],
+      "specifications": ""
+    }
+  ]
+}
