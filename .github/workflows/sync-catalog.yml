@@ -1,0 +1,39 @@
+name: Sincronizar catálogo AJ Imports
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aj-imports-catalog-sync
+  cancel-in-progress: false
+
+jobs:
+  atualizar-catalogo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Consultar banco de produtos publicado
+        run: node .github/scripts/sync-catalog.mjs
+      - name: Publicar catálogo se houver mudanças
+        run: |
+          if git diff --quiet -- catalogo.json; then
+            echo "Nenhuma alteração de produto."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add catalogo.json
+          git commit -m "Atualizar catálogo da AJ Imports"
+          git push
