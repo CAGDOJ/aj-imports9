@@ -1,5 +1,10 @@
 name: Sincronizar catálogo AJ Imports
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-catalog.yml'
+      - '.github/scripts/sync-catalog.mjs'
   workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
