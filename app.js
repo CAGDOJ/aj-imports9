@@ -61,11 +61,60 @@ $('#previousPhoto').onclick=()=>showPhoto(photoIndex-1);$('#nextPhoto').onclick=
 $('#detailAdd').onclick=()=>{const qty=Number($('#detailQuantity').value);if(!$('#detailQuantity').reportValidity())return;if(addItem(detailProduct,qty)){$('#detailFeedback').textContent=`${qty} unidade(s) adicionada(s) à sacola.`;updateDetailBuy()}};
 $('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(selectionMessage());toast('Seleção copiada. Cole na conversa com a loja.')}catch{toast('Não foi possível copiar. Confira os itens na sacola.')}};
 $('#search').oninput=render;$('#sort').onchange=render;$('#year').textContent=new Date().getFullYear();updateBag();
-fetch(API_ORIGIN+'/api/products',{credentials:'omit',cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(data=>{
- products=(Array.isArray(data)?data:[]).filter(p=>typeof p.id==='string'&&typeof p.name==='string'&&typeof p.category==='string'&&Number.isFinite(p.price)&&p.price>=0&&Number.isInteger(p.stock)&&p.stock>=0);catalogReady=true;
- const previous=JSON.stringify(cart);cart=cart.filter(x=>products.some(p=>p.id===x.id&&p.stock>0)).map(x=>({...x,qty:Math.min(x.qty,products.find(p=>p.id===x.id).stock)}));persist();if(JSON.stringify(cart)!==previous)toast('Sua sacola foi ajustada ao estoque disponível.');
- for(const c of ['Todos',...new Set(products.map(p=>p.category).filter(c=>c!=='Todos'))]){const b=text('button',c,c==='Todos'?'active':'');b.onclick=()=>{category=c;document.querySelectorAll('#categories button').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});render()};b.setAttribute('aria-pressed',String(c==='Todos'));$('#categories').append(b)}render();if($('#cart').open)renderCart();
-}).catch(()=>{$('#floatingTotal').textContent=cart.length?'Atualize para ver o subtotal':'Sua sacola está vazia';$('#empty h3').textContent='Não foi possível carregar o catálogo.';$('#empty>p:not(.eyebrow)').textContent='Atualize a página ou consulte a loja pelo WhatsApp.'});
+// O JSON público é servido pelo mesmo domínio da vitrine (funciona mesmo sem CORS).
+// A consulta direta à API continua sendo tentada para mostrar alterações em tempo real.
+let catalogLoadVersion=0;
+function applyCatalog(data){
+ const rows=Array.isArray(data)?data:data?.products;
+ if(!Array.isArray(rows))throw Error('Resposta inválida do catálogo.');
+ products=rows.filter(p=>typeof p.id==='string'&&typeof p.name==='string'&&typeof p.category==='string'&&Number.isFinite(p.price)&&p.price>=0&&Number.isInteger(p.stock)&&p.stock>=0);
+ catalogReady=true;
+ const previous=JSON.stringify(cart);
+ cart=cart.filter(x=>products.some(p=>p.id===x.id&&p.stock>0)).map(x=>({...x,qty:Math.min(x.qty,products.find(p=>p.id===x.id).stock)}));
+ if(JSON.stringify(cart)!==previous)toast('Sua sacola foi ajustada ao estoque disponível.');
+ try{localStorage.setItem('aj-selection',JSON.stringify(cart))}catch{}
+ updateBag();
+ $('#categories').replaceChildren();
+ for(const c of ['Todos',...new Set(products.map(p=>p.category).filter(c=>c!=='Todos'))]){
+  const b=text('button',c,c===category?'active':'');
+  b.onclick=()=>{category=c;document.querySelectorAll('#categories button').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});render()};
+  b.setAttribute('aria-pressed',String(c===category));
+  $('#categories').append(b);
+ }
+ if(category!=='Todos'&&!products.some(p=>p.category===category))category='Todos';
+ render();
+ if($('#cart').open)renderCart();
+}
+async function catalogRequest(url,extra={}){
+ const controller=new AbortController();
+ const timer=setTimeout(()=>controller.abort(),8500);
+ try{
+  const response=await fetch(url,{cache:'no-store',...extra,signal:controller.signal});
+  if(!response.ok)throw Error('Catálogo indisponível ('+response.status+').');
+  return await response.json();
+ }finally{clearTimeout(timer)}
+}
+async function refreshCatalog(){
+ const version=++catalogLoadVersion;
+ let priority=0;
+ const snapshot=catalogRequest('./catalogo.json?v='+Date.now()).then(data=>{
+  if(version!==catalogLoadVersion||priority>1)return;
+  priority=1;applyCatalog(data);
+ });
+ const live=catalogRequest(API_ORIGIN+'/api/products',{credentials:'omit'}).then(data=>{
+  if(version!==catalogLoadVersion)return;
+  priority=2;applyCatalog(data);
+ });
+ await Promise.allSettled([snapshot,live]);
+ if(version===catalogLoadVersion&&!catalogReady){
+  $('#floatingTotal').textContent=cart.length?'Atualize para ver o subtotal':'Sua sacola está vazia';
+  $('#empty h3').textContent='Não foi possível carregar o catálogo.';
+  $('#empty>p:not(.eyebrow)').textContent='Verifique sua conexão ou consulte a loja pelo WhatsApp.';
+ }
+}
+refreshCatalog();
+setInterval(()=>{if(document.visibilityState==='visible'&&!submitting)refreshCatalog()},120000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&!submitting)refreshCatalog()});
 $('#orderForm').addEventListener('input',()=>{pendingOrder=null;$('#orderError').hidden=true});
 $('#orderForm').onsubmit=async e=>{
  e.preventDefault();if(submitting||!cart.length)return;
