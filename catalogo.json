@@ -1,15 +1,22 @@
 {
-  "updatedAt": "2026-11-04T20:49:11.582Z",
+  "updatedAt": "2026-11-05T15:50:27.310Z",
   "products": [
     {
-      "id": "2a8e55dc-c777-4565-9e0f-35bed1e7d528",
-      "name": "Teste",
+      "id": "9dd98227-4a97-4032-a82c-b81b6e1af506",
+      "name": "SU01 COM GPS",
       "category": "Smartwatch",
-      "description": "",
-      "price": 100,
-      "stock": 10,
-      "image": "",
-      "photos": [],
+      "description": "Smartwatch SU01 – Tecnologia, estilo e praticidade no seu dia a dia. \n\n✔ Tela AMOLED de alta definição com cores vibrantes.\n✔ Faz e recebe chamadas via Bluetooth.\n✔ Recebe notificações de WhatsApp, Instagram e outros aplicativos.\n✔ Armazenamento interno para músicas.\n✔ Monitoramento de frequência cardíaca, sono e atividades físicas.\n✔ Diversos modos de esporte.\n✔ Resistência à água (uso diário).\n✔ Bateria de longa duração.\n✔ Mostradores personalizáveis.\n\nSe você é amante de tecnologia e é esportista, esse modelo é ideal para você. Pois é o mais completo do mercado! \n\n📦 Produto novo com garantia de 90 dias\n🚚 Enviamos para todo o Pará\n✅ Entrega grátis em Belém",
+      "price": 389.99,
+      "stock": 1,
+      "image": "/api/images/be9f1321-ec55-416d-b0b8-5e12e4c919d1.jpg",
+      "photos": [
+        "/api/images/be9f1321-ec55-416d-b0b8-5e12e4c919d1.jpg",
+        "/api/images/cdea0a94-7f3c-4837-a94d-bff5a96847d1.jpg",
+        "/api/images/9e59d347-27aa-4744-9b5d-8ffe7e6aa708.jpg",
+        "/api/images/a9af49df-bcef-4583-b4de-6d9ba6ade8c8.jpg",
+        "/api/images/0852c495-37fd-44c9-aae9-93928a857938.jpg",
+        "/api/images/0489623b-f986-4281-bb66-db464720bfa5.jpg"
+      ],
       "specifications": ""
     },
     {
@@ -37,9 +44,16 @@
       "description": "Smartwatch W11 Mini – O queridinho da categoria! ⌚✨\n\n•  Faz e recebe ligações\n•  Mostra notificações do WhatsApp e redes sociais\n•  Mede batimentos, oxigênio, pressão e sono\n•  Conta passos, calorias e monitora treinos\n•  Controla músicas e tira fotos no celular\n•  Permite colocar sua foto na tela\n•  Design compacto e leve",
       "price": 289.9,
       "stock": 5,
-      "image": "/api/images/e75b3111-5af3-48a6-9852-82c8af6ec27e.jpg",
+      "image": "/api/images/b930465e-b8a7-4c53-be3a-befc5e0c113f.jpg",
       "photos": [
-        "/api/images/e75b3111-5af3-48a6-9852-82c8af6ec27e.jpg"
+        "/api/images/b930465e-b8a7-4c53-be3a-befc5e0c113f.jpg",
+        "/api/images/2974df07-ec5a-4129-905a-5660f0dbd10d.jpg",
+        "/api/images/f9064ccc-43a0-4c90-aec8-a6bba1c4c6b7.jpg",
+        "/api/images/055b825c-a128-4b51-a219-a07471e5a632.jpg",
+        "/api/images/6434b4bf-8e61-499b-860c-e200e36daac7.jpg",
+        "/api/images/289dc2c8-7ab8-403f-8111-ce871255bf8d.jpg",
+        "/api/images/60084f34-9708-4819-810c-9e695dfa86d1.jpg",
+        "/api/images/775fd997-f110-4867-af46-9327821f9a95.jpg"
       ],
       "specifications": ""
     }
