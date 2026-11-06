@@ -1,5 +1,5 @@
 'use strict';
-const API='https://aj-imports9.carlosjralfa.chatgpt.site';
+const API=(location.pathname.startsWith('/store/')||location.hostname.endsWith('.chatgpt.site'))?'':'https://aj-imports9.carlosjralfa.chatgpt.site';
 const $=id=>document.getElementById(id);
 const money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n);
 const url=src=>src.startsWith('/api/images/')?API+src:src;
@@ -56,7 +56,7 @@ async function loadCatalog(address){
 async function start(){
  if(!/^[0-9a-fA-F-]{36}$/.test(productId)){$('loading').hidden=true;$('error').hidden=false;return}
  const attempts=[
-  loadCatalog('../catalogo.json?v='+Date.now()).then(list=>{const p=list.find(p=>p.id===productId&&valid(p));if(p&&sourcePriority<1){sourcePriority=1;productView(p)}}),
+  loadCatalog((API?'../catalogo.json':'/api/products')+'?v='+Date.now()).then(list=>{const p=list.find(p=>p.id===productId&&valid(p));if(p&&sourcePriority<1){sourcePriority=1;productView(p)}}),
   loadCatalog(API+'/api/products').then(list=>{const p=list.find(p=>p.id===productId&&valid(p));if(p){sourcePriority=2;productView(p)}})
  ];
  await Promise.allSettled(attempts);

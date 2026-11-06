@@ -1,5 +1,5 @@
 'use strict';
-const API_ORIGIN="https://aj-imports9.carlosjralfa.chatgpt.site";
+const API_ORIGIN=(location.pathname.startsWith('/store/')||location.hostname.endsWith('.chatgpt.site'))?'':"https://aj-imports9.carlosjralfa.chatgpt.site";
 const WHATSAPP='https://wa.me/5591980793350';
 const $=s=>document.querySelector(s);
 let products=[],category='Todos',cart=[],submitting=false,pendingOrder=null,receipt=null,catalogReady=false,detailProduct=null,detailPhotos=[],photoIndex=0;
@@ -111,7 +111,7 @@ async function catalogRequest(url,extra={}){
 async function refreshCatalog(){
  const version=++catalogLoadVersion;
  let priority=0;
- const snapshot=catalogRequest('./catalogo.json?v='+Date.now()).then(data=>{
+ const snapshot=catalogRequest((API_ORIGIN?'./catalogo.json':'/api/products')+'?v='+Date.now()).then(data=>{
   if(version!==catalogLoadVersion||priority>1)return;
   priority=1;applyCatalog(data);
  });
