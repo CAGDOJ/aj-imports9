@@ -11,7 +11,10 @@
 (function () {
   "use strict";
   const destination="https://aj-imports9.carlosjralfa.chatgpt.site/gerente";
-  window.location.replace(destination + window.location.search + window.location.hash);
+  const canonicalDestination=location.hostname==='cagdoj.github.io'
+    ? 'https://ajimports.store'+location.pathname.replace(/^\/aj-imports9(?=\/|$)/,'')
+    : destination;
+  window.location.replace(canonicalDestination + window.location.search + window.location.hash);
 })();
 </script>
 <style>
