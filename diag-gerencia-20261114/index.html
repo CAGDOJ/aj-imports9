@@ -1,9 +1,0 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AJ Imports - diagnóstico de origem</title></head><body style="font:15px system-ui;padding:30px"><h1>AJ Imports — Diagnóstico de API</h1><pre id="out">Testando ponte de gestão...</pre><script>
-(async()=>{
- const out=document.getElementById('out'),base='https://grqumxtzqpxuuoyjvprd.supabase.co/functions/v1/ajimports-bridge';const results=[];
- async function check(label,path,options){try{const response=await fetch(base+path,{cache:'no-store',...options});results.push(label+': '+response.status+' '+(await response.text()).slice(0,500));}catch(e){results.push(label+': ERRO '+e.message)}out.textContent=results.join('\n')}
- await check('ORIGEM REAL','/diagnostic');
- await check('PRODUTOS','/api/products');
- await check('AUTH TESTE','/api/auth',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action:'teste-sem-login'})});
-})();
-</script></body></html>
