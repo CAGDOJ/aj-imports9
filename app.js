@@ -129,13 +129,13 @@ async function refreshCatalog(){
 refreshCatalog();
 setInterval(()=>{if(document.visibilityState==='visible'&&!submitting)refreshCatalog()},120000);
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&!submitting)refreshCatalog()});
-$('#orderForm').addEventListener('input',()=>{pendingOrder=null;$('#orderError').hidden=true});
+$('#orderForm').addEventListener('input',()=>{pendingOrder=null;$('#orderError').hidden=true;$('#manualOrderWhatsApp').hidden=true});
 $('#orderForm').onsubmit=async e=>{
  e.preventDefault();if(submitting||!cart.length)return;
  const body={customer:$('#orderName').value.trim(),phone:$('#orderPhone').value,fulfillment:$('#orderDelivery').value,payment:$('#orderPayment').value,note:$('#orderNote').value.trim(),items:cart.map(l=>({id:l.id,qty:l.qty,price:Math.round((products.find(p=>p.id===l.id)?.price||0)*100)}))};
  const signature=JSON.stringify(body);
  if(!pendingOrder||pendingOrder.signature!==signature)pendingOrder={signature,requestId:crypto.randomUUID()};
- submitting=true;$('#orderError').hidden=true;
+ submitting=true;$('#orderError').hidden=true;$('#manualOrderWhatsApp').hidden=true;
  for(const el of $('#orderForm').elements)el.disabled=true;
  $('#submitOrder').textContent='Enviando pedido…';renderCart();
  try{
@@ -145,6 +145,12 @@ $('#orderForm').onsubmit=async e=>{
   $('#orderReceipt').textContent=`Pedido #${result.id.slice(0,8).toUpperCase()} · ${money(result.total/100)} (sem frete)`;
   $('#orderWhatsApp').href=WHATSAPP+'?text='+encodeURIComponent(`Olá! Enviei o pedido #${result.id.slice(0,8).toUpperCase()} no site. Sou ${body.customer}.\n`+summary+`\n${body.fulfillment} · Pagamento: ${body.payment}`);
   cart=[];persist();renderCart();$('#cartItems').replaceChildren();$('#orderForm').hidden=true;$('#orderSuccess').hidden=false;$('#copy').hidden=true;$('#selectionHint').hidden=true;pendingOrder=null;
- }catch(error){$('#orderError').textContent=error.message||'Falha de conexão. Tente novamente.';$('#orderError').hidden=false;}
+ }catch(error){
+  $('#orderError').textContent=(error?.message||'Falha de conexão.')+' Não foi possível confirmar o registro automático. Sua sacola foi preservada. Você pode tentar novamente ou enviar a seleção pelo WhatsApp.';
+  $('#orderError').hidden=false;
+  const wa=$('#manualOrderWhatsApp');
+  const message=selectionMessage()+'\n\nNome: '+body.customer+'\nWhatsApp: '+body.phone+'\nRecebimento: '+body.fulfillment+'\nPagamento: '+body.payment+(body.note?'\nObservação: '+body.note:'')+'\n\nNão consegui confirmar o registro automático no site. Você pode verificar minha seleção?';
+  wa.href=WHATSAPP+'?text='+encodeURIComponent(message);wa.hidden=false;
+ }
  finally{submitting=false;for(const el of $('#orderForm').elements)el.disabled=false;$('#submitOrder').textContent='Enviar pedido para a loja';renderCart();if(receipt)$('#cartItems').replaceChildren();}
 };

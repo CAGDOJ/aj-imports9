@@ -160,3 +160,6 @@ body{padding-bottom:90px}body.modal-open{overflow:hidden}.floating-actions{posit
 @supports(height:100svh){
   @media(max-width:650px){#productDetails{max-height:calc(100svh - env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px))}}
 }
+
+/* AJ Imports: alternative manual checkout while API registration is unavailable. */
+.checkout-fallback{width:100%;margin:12px 0 14px;text-align:center;line-height:1.4}.checkout-fallback[hidden]{display:none!important}
