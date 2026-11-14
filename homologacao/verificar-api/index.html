@@ -12,5 +12,6 @@
  await check('Catálogo público',api+'/api/products');
  await check('Gerência sem autorização',api+'/api/manager',{headers:{'Authorization':'Bearer '+('0'.repeat(64))}});
  await check('Pré-verificação do login',api+'/api/auth',{method:'OPTIONS',headers:{'Access-Control-Request-Method':'POST','Access-Control-Request-Headers':'content-type,authorization'}});
+ await check('POST login inválido (sem credenciais)',api+'/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'test_request_without_login'})});
 })();
 </script></body></html>
