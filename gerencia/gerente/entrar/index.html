@@ -1,0 +1,29 @@
+<!doctype html><html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#103879">
+<title>Gerência · AJ Imports</title>
+<link rel="icon" href="/aj-imports-logo-transparent.png">
+<link rel="stylesheet" href="/assets/index-CGgMHPSQ.css?v=gerencia-integrada-20261114">
+<script>window.AJ_PAGES={apiOrigin:"https://grqumxtzqpxuuoyjvprd.supabase.co/functions/v1/ajimports-bridge",basePath:'/gerencia'};</script>
+<style>body{min-height:100dvh}#aj-banner{font:12px system-ui;background:#f1f5ff;color:#365987;text-align:center;padding:9px 15px;border-bottom:1px solid #dfebf8}#aj-banner strong{color:#113e83}#aj-load-error{display:none;padding:20px;background:white;color:#8a2739;border:1px solid #ead0d5;border-radius:14px;max-width:480px;margin:25px auto;font:15px system-ui;line-height:1.7}#aj-load-error button{border:none;background:#12448d;color:white;padding:12px 20px;border-radius:8px}a:focus-visible,button:focus-visible{outline:3px solid #ffb511;outline-offset:3px}</style>
+</head><body>
+<div id="aj-banner"><strong>AJ IMPORTS</strong> · Gerência integrada</div>
+<div id="root"></div>
+<div id="aj-load-error" role="alert"><strong>Não foi possível carregar o painel.</strong><p>Verifique a conexão e atualize esta página.</p><button type="button" onclick="location.reload()">Tentar novamente</button></div>
+<noscript>A gerência precisa do JavaScript ativado no navegador.</noscript>
+<script>
+(function(){
+ const root=document.getElementById('root'),failure=document.getElementById('aj-load-error');
+ const fixLinks=()=>{
+   for(const a of root.querySelectorAll('a')){
+    const text=(a.textContent||'').trim();
+    if(text==='Ver loja'||text==='Voltar à loja'||a.classList.contains('auth-logo'))a.href='https://ajimports.store/';
+   }
+ };
+ const observer=new MutationObserver(fixLinks);observer.observe(root,{childList:true,subtree:true});
+ setTimeout(()=>{if(!root.children.length){failure.style.display='block'}},12000);
+})();
+</script>
+<script type="module" src="/assets/index-Dv3UwYmB.js?v=gerencia-integrada-20261114"></script>
+</body></html>
