@@ -68,7 +68,7 @@ export default function ProductCards({products,busy,onNew,onEdit,onAction}:Props
    <section className="aj-manage-confirm" role="alertdialog" aria-modal="true" aria-labelledby="aj-confirm-title">
     <h2 id="aj-confirm-title">Excluir produto?</h2>
     <strong>{deleting.name}</strong>
-    <p>Se o produto já tiver vendas ou pedidos, será retirado da vitrine, mas seu histórico será preservado. Produtos sem histórico poderão ser excluídos definitivamente.</p>
+    <p>Ao confirmar, o produto será retirado da vitrine. Se a versão atual do servidor ainda não permitir exclusão definitiva, ele ficará oculto para preservar o cadastro e o histórico. Você poderá restaurá-lo em Mostrar ocultos.</p>
     <div className="aj-manage-actions"><button type="button" className="btn secondary" disabled={busy} onClick={()=>setRemove('')}>Cancelar</button><button type="button" className="btn danger" disabled={busy} onClick={deletingAction}>{busy?'Excluindo…':'Confirmar exclusão'}</button></div>
    </section>
   </div>}
