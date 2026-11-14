@@ -4,7 +4,10 @@
  const results=[];
  async function check(label,url,options){
   try{
-   const r=await fetch(url,{cache:'no-store',credentials:'omit',...options});
+   const controller=new AbortController();
+   const timeout=setTimeout(()=>controller.abort(),9500);
+   let r;
+   try{r=await fetch(url,{cache:'no-store',credentials:'omit',signal:controller.signal,...options})}finally{clearTimeout(timeout)}
    results.push(label+': STATUS '+r.status+', CORS OK, tipo '+(r.headers.get('content-type')||'N/A'));
   }catch(e){results.push(label+': ERRO '+String(e))}
   out.textContent=results.join('\n');
