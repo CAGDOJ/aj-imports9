@@ -1,0 +1,44 @@
+name: Compilar e publicar gerência AJ Imports
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'manager-src/**'
+      - '.github/workflows/build-manager.yml'
+      - '.github/scripts/publish-manager.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ajimports-manager-build
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências do painel
+        working-directory: manager-src
+        run: npm install --no-audit --no-fund
+      - name: Compilar painel React
+        working-directory: manager-src
+        run: npm run build
+      - name: Gerar arquivos definitivos da gerência
+        run: node .github/scripts/publish-manager.mjs
+      - name: Publicar painel
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gerencia/ assets/
+          if git diff --cached --quiet; then
+            echo "Gerência já atualizada."
+          else
+            git commit -m "Atualizar painel gestor com visualizar, editar e excluir produtos"
+            git push origin HEAD:main
+          fi
