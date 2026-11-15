@@ -1,0 +1,9 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AJ Imports · Diagnóstico de pedidos</title></head><body><h2>Diagnóstico seguro de pedido</h2><pre id="out">Verificando conexão...</pre><script>
+(async()=>{
+const api='https://grqumxtzqpxuuoyjvprd.supabase.co/functions/v1/ajimports-bridge/api/orders';const el=document.getElementById('out');
+try{
+const response=await fetch(api,{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:'{}'});
+el.textContent='HTTP '+response.status+' '+(await response.text()).slice(0,500);
+}catch(e){el.textContent='ERRO '+String(e)}
+})();
+</script></body></html>
