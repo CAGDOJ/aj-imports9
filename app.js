@@ -1,5 +1,7 @@
 'use strict';
 const API_ORIGIN=(location.pathname.startsWith('/store/')||location.hostname.endsWith('.chatgpt.site'))?'':"https://aj-imports9.carlosjralfa.chatgpt.site";
+// Pedidos da vitrine Pages passam pela mesma ponte usada pela gerência.
+const ORDER_API_ORIGIN=API_ORIGIN?"https://grqumxtzqpxuuoyjvprd.supabase.co/functions/v1/ajimports-bridge":'';
 const WHATSAPP='https://wa.me/5591980793350';
 const $=s=>document.querySelector(s);
 let products=[],category='Todos',cart=[],submitting=false,pendingOrder=null,receipt=null,catalogReady=false,detailProduct=null,detailPhotos=[],photoIndex=0;
@@ -139,14 +141,16 @@ $('#orderForm').onsubmit=async e=>{
  for(const el of $('#orderForm').elements)el.disabled=true;
  $('#submitOrder').textContent='Enviando pedido…';renderCart();
  try{
-  const response=await fetch(API_ORIGIN+'/api/orders',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,requestId:pendingOrder.requestId})});
+  const response=await fetch(ORDER_API_ORIGIN+'/api/orders',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,requestId:pendingOrder.requestId})});
   const result=await response.json();if(!response.ok)throw Error(result.error||'Não foi possível enviar. Tente novamente.');
   receipt=result;const summary=selectionMessage();
   $('#orderReceipt').textContent=`Pedido #${result.id.slice(0,8).toUpperCase()} · ${money(result.total/100)} (sem frete)`;
   $('#orderWhatsApp').href=WHATSAPP+'?text='+encodeURIComponent(`Olá! Enviei o pedido #${result.id.slice(0,8).toUpperCase()} no site. Sou ${body.customer}.\n`+summary+`\n${body.fulfillment} · Pagamento: ${body.payment}`);
   cart=[];persist();renderCart();$('#cartItems').replaceChildren();$('#orderForm').hidden=true;$('#orderSuccess').hidden=false;$('#copy').hidden=true;$('#selectionHint').hidden=true;pendingOrder=null;
  }catch(error){
-  $('#orderError').textContent=(error?.message||'Falha de conexão.')+' Não foi possível confirmar o registro automático. Sua sacola foi preservada. Você pode tentar novamente ou enviar a seleção pelo WhatsApp.';
+  const reason=error?.message&& !/^(Load failed|Failed to fetch|NetworkError|TypeError|Network request failed)$/i.test(error.message)
+    ? error.message : 'Falha de comunicação com o servidor.';
+  $('#orderError').textContent=reason+' Não foi possível confirmar o registro automático. Sua sacola foi preservada. Tente novamente usando o mesmo pedido ou envie a seleção pelo WhatsApp.';
   $('#orderError').hidden=false;
   const wa=$('#manualOrderWhatsApp');
   const message=selectionMessage()+'\n\nNome: '+body.customer+'\nWhatsApp: '+body.phone+'\nRecebimento: '+body.fulfillment+'\nPagamento: '+body.payment+(body.note?'\nObservação: '+body.note:'')+'\n\nNão consegui confirmar o registro automático no site. Você pode verificar minha seleção?';
