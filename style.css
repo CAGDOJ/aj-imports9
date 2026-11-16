@@ -163,3 +163,83 @@ body{padding-bottom:90px}body.modal-open{overflow:hidden}.floating-actions{posit
 
 /* AJ Imports: alternative manual checkout while API registration is unavailable. */
 .checkout-fallback{width:100%;margin:12px 0 14px;text-align:center;line-height:1.4}.checkout-fallback[hidden]{display:none!important}
+
+
+/* AJ Imports: modal da sacola retangular e centralizado em telas pequenas.
+   Evita o bottom-sheet em formato de balão e mantém a confirmação compacta. */
+@media (max-width:650px) {
+  #cart {
+    position:fixed;
+    inset:0;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    margin:auto;
+    box-sizing:border-box;
+    display:block;
+    width:calc(100% - 26px);
+    max-width:440px;
+    height:fit-content;
+    min-height:0;
+    max-height:calc(100dvh - 36px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+    border:1px solid var(--line);
+    border-radius:9px;
+    padding:18px 17px calc(18px + env(safe-area-inset-bottom,0px));
+    overflow-y:auto;
+    overflow-x:hidden;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    box-shadow:0 20px 64px rgba(6,24,58,.28);
+  }
+  #cart:not([open]) { display:none; }
+  #cart .dialog-head {
+    position:sticky;
+    top:-18px;
+    z-index:4;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin:0 0 12px;
+    padding:7px 0 13px;
+    background:#fff;
+    border-bottom:1px solid var(--line);
+  }
+  #cart .dialog-head h2 {
+    margin:0;
+    font-size:clamp(21px,6vw,27px);
+    line-height:1.2;
+  }
+  #cart .dialog-head .close {
+    display:grid;
+    flex:0 0 40px;
+    width:40px;
+    height:40px;
+    place-items:center;
+    padding:0;
+    border-radius:6px;
+    font-size:28px;
+    line-height:1;
+  }
+  #cart .checkout-success {
+    margin:12px 0;
+    padding:17px;
+    border-radius:8px;
+  }
+  #cart:has(#orderSuccess:not([hidden])) #cartItems,
+  #cart:has(#orderSuccess:not([hidden])) #total {
+    display:none;
+  }
+  #cart:has(#orderSuccess:not([hidden])) #sendWhatsApp {
+    margin:0;
+    padding:10px;
+  }
+}
+@supports (height:100svh) {
+  @media (max-width:650px) {
+    #cart {
+      max-height:calc(100svh - 26px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+    }
+  }
+}
