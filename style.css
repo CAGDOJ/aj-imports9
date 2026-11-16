@@ -243,3 +243,24 @@ body{padding-bottom:90px}body.modal-open{overflow:hidden}.floating-actions{posit
     }
   }
 }
+
+
+/* iOS Safari: campos com texto menor que 16px causam zoom automático ao focar.
+   Preserve o zoom manual de acessibilidade, mas não amplie a sacola ao digitar. */
+@media (max-width:767px) {
+  #cart .checkout-fields input,
+  #cart .checkout-fields select,
+  #cart .checkout-fields textarea {
+    font-family:inherit;
+    font-size:16px;
+    line-height:1.4;
+    -webkit-text-size-adjust:100%;
+  }
+  #cart .checkout-fields input,
+  #cart .checkout-fields select {
+    min-height:46px;
+  }
+  #cart .checkout-fields textarea {
+    min-height:88px;
+  }
+}
